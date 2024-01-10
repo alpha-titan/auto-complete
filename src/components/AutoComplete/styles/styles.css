@@ -1,0 +1,98 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-box {
+  font-size: large;
+  border-radius: 4px;
+  width: 300px;
+  padding: 4px;
+  flex: 1;
+  height: 1em;
+  transition: margin-left 0.5s;
+}
+
+.logo {
+  height: 2.5em;
+  margin-right: 2px;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.5s, transform 0.5s;
+  animation: none;
+}
+
+.input-logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggestion-box {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.suggestion-box li {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.suggestion-box li:last-child {
+  border-bottom: none;
+}
+
+.input-box:focus + .suggestion-box {
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: black;
+}
+
+/* .logo:hover {
+  opacity: 1 !important;
+  transform: translateX(0);
+} */
+
+.logo-slide {
+  opacity: 1 !important;
+  transform: translateX(0);
+}
+
+@keyframes jumpAnimation {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.logo-jump {
+  animation: jumpAnimation 1s infinite;
+}
