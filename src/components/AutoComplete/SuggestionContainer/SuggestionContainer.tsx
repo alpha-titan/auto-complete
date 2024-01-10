@@ -3,13 +3,7 @@ import "../styles/autocomplete.styles.css";
 import "./styles/suggestion.styles.css";
 import Highlighter from "../Highlighter/Highlighter";
 import { NO_RESULTS_FOUND } from "../constants";
-
-interface ISuggestionContainer<T = string> {
-  filteredData: T[];
-  inputValue: string;
-  handleSuggestionClick: (item: T) => void;
-  getDataKey: (item: T) => string;
-}
+import { ISuggestionContainer } from "../types";
 
 const SuggestionContainer: React.FC<ISuggestionContainer> = ({
   filteredData,

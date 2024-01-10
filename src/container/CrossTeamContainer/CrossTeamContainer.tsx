@@ -3,6 +3,7 @@ import { Phone } from "../../components/AutoComplete/types";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
 import { getItemKey } from "../../utils/util";
 import ripplingLogo from "../../assets/Rippling logo.svg";
+import { AUTO_COMPLETE_TITLE } from "./constants";
 
 // This is the cosumer container
 
@@ -37,7 +38,7 @@ const CrossTeamContainer = () => {
 
   return (
     <AutoComplete
-      title="Rippling Auto Complete"
+      title={AUTO_COMPLETE_TITLE}
       onChange={handleInputChange}
       fetchData={fetchDataAsync}
       getDataKey={getItemKey}

@@ -1,17 +1,5 @@
-import { useState, useEffect, useMemo, Dispatch } from "react";
-
-interface UseAutoCompleteProps<T> {
-  fetchData: (query: string) => Promise<T[]>;
-  value: string;
-  shouldDebounce?: boolean;
-  delay?: number;
-  setInputValue: Dispatch<React.SetStateAction<string>>;
-}
-
-interface UseAutoCompleteResult<T> {
-  filteredData: T[];
-  loading: boolean;
-}
+import { useState, useEffect, useMemo } from "react";
+import { UseAutoCompleteProps, UseAutoCompleteResult } from "./types";
 
 export const useAutoComplete = <T>({
   fetchData,

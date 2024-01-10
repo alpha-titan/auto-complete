@@ -3,6 +3,7 @@ import { Post } from "../../components/AutoComplete/types";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
 import { getItemKey } from "../../utils/util";
 import deelLogo from "../../assets/Brand.svg";
+import { AUTO_COMPLETE_TITLE } from "./constants";
 
 // This is the cosumer container
 
@@ -57,7 +58,7 @@ const AutoCompleteContainer = () => {
 
   return (
     <AutoComplete
-      title="Deel Auto Complete"
+      title={AUTO_COMPLETE_TITLE}
       onChange={handleInputChange}
       fetchData={fetchDataAsync}
       getDataKey={getItemKey}

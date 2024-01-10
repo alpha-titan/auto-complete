@@ -45,3 +45,28 @@ export interface Phone {
   description?: string;
   id?: string | number;
 }
+
+export interface IHighlighterProps {
+  query: string;
+  text: string;
+}
+
+export interface ISuggestionContainer<T = string> {
+  filteredData: T[];
+  inputValue: string;
+  handleSuggestionClick: (item: T) => void;
+  getDataKey: (item: T) => string;
+}
+
+export interface UseAutoCompleteProps<T> {
+  fetchData: (query: string) => Promise<T[]>;
+  value: string;
+  shouldDebounce?: boolean;
+  delay?: number;
+  setInputValue: Dispatch<React.SetStateAction<string>>;
+}
+
+export interface UseAutoCompleteResult<T> {
+  filteredData: T[];
+  loading: boolean;
+}

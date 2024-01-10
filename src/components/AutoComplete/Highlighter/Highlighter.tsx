@@ -1,10 +1,6 @@
 import React from "react";
 import "./styles/highlighter.styles.css";
-
-interface IHighlighterProps {
-  query: string;
-  text: string;
-}
+import { IHighlighterProps } from "../types";
 
 const Highlighter: React.FC<IHighlighterProps> = ({ query, text }) => {
   const regex = new RegExp(`(${query})`, "gi");
