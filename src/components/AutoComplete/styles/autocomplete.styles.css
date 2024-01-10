@@ -31,44 +31,11 @@
   justify-content: center;
 }
 
-.suggestion-box {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s;
-  max-height: 400px;
-  overflow-y: scroll;
-}
-
-.suggestion-box li {
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #ccc;
-}
-
-.suggestion-box li:last-child {
-  border-bottom: none;
-}
-
 .input-box:focus + .suggestion-box {
   visibility: visible !important;
   opacity: 1 !important;
   color: black;
 }
-
-/* .logo:hover {
-  opacity: 1 !important;
-  transform: translateX(0);
-} */
 
 .logo-slide {
   opacity: 1 !important;

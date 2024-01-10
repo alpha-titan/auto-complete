@@ -1,6 +1,8 @@
 import React from "react";
-import "../styles/styles.css";
+import "../styles/autocomplete.styles.css";
+import "./styles/suggestion.styles.css";
 import Highlighter from "../Highlighter/Highlighter";
+import { NO_RESULTS_FOUND } from "../constants";
 
 interface ISuggestionContainer<T = string> {
   filteredData: T[];
@@ -15,17 +17,19 @@ const SuggestionContainer: React.FC<ISuggestionContainer> = ({
   getDataKey,
   inputValue,
 }) => {
+  console.log({ filteredData });
   if (filteredData?.length === 0) {
-    <ul className="suggestion-box">
-      <li>"No results found"</li>
-    </ul>;
+    return (
+      <ul className="suggestion-box">
+        <li aria-disabled>{NO_RESULTS_FOUND}</li>
+      </ul>
+    );
   }
   return (
     <ul className="suggestion-box">
       {filteredData?.map((item) => (
         <li key={getDataKey(item)} onClick={() => handleSuggestionClick(item)}>
           <Highlighter query={inputValue} text={item} />
-          {/* {item} */}
         </li>
       ))}
     </ul>

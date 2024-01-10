@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/styles.css";
+import "./styles/highlighter.styles.css";
 
 interface IHighlighterProps {
   query: string;

@@ -1,49 +1,38 @@
-import {
-  useState,
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-} from "react";
-import useDebounce from "./useDebounce";
+import { useState, useEffect, useMemo, Dispatch } from "react";
 
 interface UseAutoCompleteProps<T> {
   fetchData: (query: string) => Promise<T[]>;
+  value: string;
+  shouldDebounce?: boolean;
+  delay?: number;
+  setInputValue: Dispatch<React.SetStateAction<string>>;
 }
 
 interface UseAutoCompleteResult<T> {
-  inputValue: string;
-  setInputValue: Dispatch<SetStateAction<string>>;
   filteredData: T[];
   loading: boolean;
-  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  debouncedValue: string;
 }
 
 export const useAutoComplete = <T>({
   fetchData,
+  value,
 }: UseAutoCompleteProps<T>): UseAutoCompleteResult<T> => {
-  const [inputValue, setInputValue] = useState<string>("");
   const [filteredData, setFilteredData] = useState<T[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const debouncedInputValue = useDebounce(inputValue, 200);
 
   const memoizedFilteredData = useMemo(() => {
     return filteredData;
   }, [filteredData]);
 
   useEffect(() => {
+    console.log({ value });
     const fetchDataAsync = async (): Promise<void> => {
-      if (debouncedInputValue) {
+      if (value) {
         setLoading(true);
         try {
-          setTimeout(async () => {
-            const data = await Promise.resolve(fetchData(debouncedInputValue));
-            setFilteredData(data);
-            setLoading(false);
-          }, 1000);
+          const data = await Promise.resolve(fetchData(value));
+          setFilteredData(data);
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -53,21 +42,10 @@ export const useAutoComplete = <T>({
     };
 
     fetchDataAsync();
-  }, [debouncedInputValue, fetchData]);
-
-  const handleInputChange = async (
-    event: ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
-    const value = event.target.value;
-    setInputValue(value);
-  };
+  }, [value, fetchData]);
 
   return {
-    inputValue,
-    setInputValue,
     filteredData: memoizedFilteredData,
     loading,
-    handleInputChange,
-    debouncedValue: debouncedInputValue,
   };
 };

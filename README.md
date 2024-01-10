@@ -20,3 +20,4 @@ What needs to be done to make this component to go to production
 
 - [] exhaustive component test cases
 - [] component util method test for all sub components
+- [] accessibility for components

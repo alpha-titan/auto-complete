@@ -1,8 +1,14 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface IAutoCompleteProps<T = string> {
+  value?: string;
+  onChange: (event: string) => void;
   fetchData: (query: string) => Promise<T[]>;
   getDataKey: (item: T) => string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  shouldDebounce?: boolean;
+  delay?: number;
 }
 
 // eslint-disable-next-line

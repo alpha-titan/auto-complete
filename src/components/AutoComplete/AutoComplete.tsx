@@ -1,31 +1,46 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useAutoComplete } from "./useAutoComplete";
 import { IAutoCompleteProps } from "./types";
 import { DEFAULT_INPUT_PLACE_HOLDER } from "./constants";
-import "./styles/styles.css";
+import "./styles/autocomplete.styles.css";
 import deelLogo from "../../assets/Brand.svg";
 import SuggestionContainer from "./SuggestionContainer/SuggestionContainer";
+import useDebounce from "./useDebounce";
 
 const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
-  ({ fetchData, getDataKey }) => {
+  ({ fetchData, getDataKey, value = "", onChange, shouldDebounce, delay }) => {
     const [isLogoVisible, setLogoVisibility] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const [inputValue, setInputValue] = useState<string>(value);
 
-    const {
-      inputValue,
-      setInputValue,
-      filteredData = [],
-      loading,
-      handleInputChange,
-      debouncedValue,
-    } = useAutoComplete({
+    const debouncedValue = useDebounce(inputValue, delay ?? 1000);
+    console.log({ debouncedValue });
+
+    const { filteredData = [], loading } = useAutoComplete({
       fetchData,
+      value: shouldDebounce ? debouncedValue : inputValue,
+      setInputValue,
     });
     useEffect(() => {
       if (inputRef.current) {
         inputRef.current.focus();
       }
     }, [inputValue]);
+
+    const handleInputChange = async (
+      event: ChangeEvent<HTMLInputElement>
+    ): Promise<void> => {
+      const currValue = event.target.value;
+      setInputValue(currValue);
+      onChange(currValue);
+    };
+
     const handleInputFocus = useCallback(() => {
       setLogoVisibility(true);
     }, [setLogoVisibility]);
@@ -39,7 +54,7 @@ const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
         setInputValue(value);
         inputRef.current?.focus();
       },
-      [inputRef, setInputValue]
+      [inputRef]
     );
 
     return (
@@ -64,9 +79,9 @@ const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
           placeholder={DEFAULT_INPUT_PLACE_HOLDER}
         />
 
-        {!loading && filteredData?.length > 0 && (
+        {!loading && (
           <SuggestionContainer
-            inputValue={debouncedValue}
+            inputValue={shouldDebounce ? debouncedValue : inputValue}
             filteredData={filteredData ?? []}
             getDataKey={getDataKey}
             handleSuggestionClick={handleSuggestionClick}
