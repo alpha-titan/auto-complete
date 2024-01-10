@@ -9,6 +9,10 @@ export interface IAutoCompleteProps<T = string> {
   isDisabled?: boolean;
   shouldDebounce?: boolean;
   delay?: number;
+  title?: string;
+  shouldShowLogo?: boolean;
+  logoSrc?: string;
+  shouldShowSelection?: boolean;
 }
 
 // eslint-disable-next-line
@@ -33,4 +37,11 @@ export interface Post {
   id: number;
   title: string;
   body: string;
+}
+
+export interface Phone {
+  brand?: string;
+  title?: string;
+  description?: string;
+  id?: string | number;
 }

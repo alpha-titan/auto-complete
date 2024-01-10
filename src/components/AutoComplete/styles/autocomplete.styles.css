@@ -1,3 +1,8 @@
+.auto-complete-container {
+  padding: 8px;
+  border-right: 1px solid rgb(137, 136, 136);
+}
+
 .container {
   position: relative;
   display: flex;
@@ -29,6 +34,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.input-box:focus {
+  box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.1);
 }
 
 .input-box:focus + .suggestion-box {

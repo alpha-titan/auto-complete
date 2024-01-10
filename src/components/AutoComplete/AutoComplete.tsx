@@ -9,12 +9,21 @@ import { useAutoComplete } from "./useAutoComplete";
 import { IAutoCompleteProps } from "./types";
 import { DEFAULT_INPUT_PLACE_HOLDER } from "./constants";
 import "./styles/autocomplete.styles.css";
-import deelLogo from "../../assets/Brand.svg";
 import SuggestionContainer from "./SuggestionContainer/SuggestionContainer";
 import useDebounce from "./useDebounce";
 
 const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
-  ({ fetchData, getDataKey, value = "", onChange, shouldDebounce, delay }) => {
+  ({
+    fetchData,
+    getDataKey,
+    value = "",
+    onChange,
+    shouldDebounce,
+    delay,
+    title,
+    shouldShowLogo,
+    logoSrc,
+  }) => {
     const [isLogoVisible, setLogoVisibility] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [inputValue, setInputValue] = useState<string>(value);
@@ -58,35 +67,42 @@ const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
     );
 
     return (
-      <div className="container">
-        <img
-          src={deelLogo}
-          alt="Logo"
-          // just a small add on to make it "Deel search" :)
-          className={
-            isLogoVisible ? `logo logo-slide ${loading && "logo-jump"}` : "logo"
-          }
-        />
-        <input
-          ref={inputRef}
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          className="input-box"
-          // Isolation string constants to seperate file for i18n
-          placeholder={DEFAULT_INPUT_PLACE_HOLDER}
-        />
-
-        {!loading && (
-          <SuggestionContainer
-            inputValue={shouldDebounce ? debouncedValue : inputValue}
-            filteredData={filteredData ?? []}
-            getDataKey={getDataKey}
-            handleSuggestionClick={handleSuggestionClick}
+      <div className="auto-complete-container">
+        <h3>{title}</h3>
+        <div className="container">
+          {shouldShowLogo && (
+            <img
+              src={logoSrc}
+              alt="Logo"
+              // just a small add on to make it "Deel search" :)
+              className={
+                isLogoVisible
+                  ? `logo logo-slide ${loading && "logo-jump"}`
+                  : "logo"
+              }
+            />
+          )}
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            className="input-box"
+            // Isolation string constants to seperate file for i18n
+            placeholder={DEFAULT_INPUT_PLACE_HOLDER}
           />
-        )}
+
+          {!loading && (
+            <SuggestionContainer
+              inputValue={shouldDebounce ? debouncedValue : inputValue}
+              filteredData={filteredData ?? []}
+              getDataKey={getDataKey}
+              handleSuggestionClick={handleSuggestionClick}
+            />
+          )}
+        </div>
       </div>
     );
   }

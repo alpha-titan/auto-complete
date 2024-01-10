@@ -2,6 +2,9 @@ import React, { useCallback } from "react";
 import { Post } from "../../components/AutoComplete/types";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
 import { getItemKey } from "../../utils/util";
+import deelLogo from "../../assets/Brand.svg";
+
+// This is the cosumer container
 
 const AutoCompleteContainer = () => {
   const handleInputChange = async (value: string) => {
@@ -54,11 +57,14 @@ const AutoCompleteContainer = () => {
 
   return (
     <AutoComplete
+      title="Deel Auto Complete"
       onChange={handleInputChange}
       fetchData={fetchDataAsync}
       getDataKey={getItemKey}
       shouldDebounce={true}
       delay={500}
+      shouldShowLogo={true}
+      logoSrc={deelLogo}
     />
   );
 };
