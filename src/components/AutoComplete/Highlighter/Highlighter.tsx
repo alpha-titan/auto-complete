@@ -6,37 +6,19 @@ interface IHighlighterProps {
   text: string;
 }
 
-const Highlighter: React.FC<IHighlighterProps> = ({
-  query,
-  text,
-}): React.ReactNode[] => {
-  const result: React.ReactNode[] = [];
-  let index = 0;
+const Highlighter: React.FC<IHighlighterProps> = ({ query, text }) => {
+  const regex = new RegExp(`(${query})`, "gi");
+  const parts = text.split(regex);
 
-  if (query) {
-    while (index < text.length) {
-      const matchIndex = text.toLowerCase().indexOf(query.toLowerCase(), index);
-
-      if (matchIndex === -1) {
-        result.push(<span key={index}>{text.substring(index)}</span>);
-        break;
-      }
-
-      const nonMatchPart = text.substring(index, matchIndex);
-      const matchPart = text.substring(matchIndex, matchIndex + query.length);
-
-      result.push(
-        <React.Fragment key={index}>
-          {nonMatchPart && <span>{nonMatchPart}</span>}
-          {matchPart && <span className="highlight">{matchPart}</span>}
-        </React.Fragment>
-      );
-
-      index = matchIndex + query.length;
-    }
-  }
-
-  return result;
+  return parts.map((part, index) =>
+    regex.test(part) ? (
+      <span key={index} className="highlight">
+        {part}
+      </span>
+    ) : (
+      <span key={index}>{part}</span>
+    )
+  );
 };
 
 export default Highlighter;

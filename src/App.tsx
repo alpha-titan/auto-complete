@@ -6,7 +6,8 @@ function App() {
   return (
     <div className="appContainer">
       <AutoCompleteContainer />
-      <CrossTeamContainer />
+      {/* uncomment to see another magical component */}
+      {/* <CrossTeamContainer /> */}
     </div>
   );
 }
