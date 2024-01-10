@@ -21,3 +21,5 @@ What needs to be done to make this component to go to production
 - [] exhaustive component test cases
 - [] component util method test for all sub components
 - [] accessibility for components
+- [] error boundaries for components, so that entire app doesn't break, just the component
+- [] story book for the component

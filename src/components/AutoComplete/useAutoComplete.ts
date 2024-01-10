@@ -13,7 +13,6 @@ export const useAutoComplete = <T>({
   }, [filteredData]);
 
   useEffect(() => {
-    console.log({ value });
     const fetchDataAsync = async (): Promise<void> => {
       if (value) {
         setLoading(true);

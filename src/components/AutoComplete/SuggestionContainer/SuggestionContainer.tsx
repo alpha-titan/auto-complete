@@ -11,7 +11,6 @@ const SuggestionContainer: React.FC<ISuggestionContainer> = ({
   getDataKey,
   inputValue,
 }) => {
-  console.log({ filteredData });
   if (filteredData?.length === 0) {
     return (
       <ul className="suggestion-box">

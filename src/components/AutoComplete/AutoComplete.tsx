@@ -29,7 +29,6 @@ const AutoComplete: React.FC<IAutoCompleteProps> = React.memo(
     const [inputValue, setInputValue] = useState<string>(value);
 
     const debouncedValue = useDebounce(inputValue, delay ?? 1000);
-    console.log({ debouncedValue });
 
     const { filteredData = [], loading } = useAutoComplete({
       fetchData,
